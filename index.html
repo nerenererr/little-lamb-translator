@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Translator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="top-banner">
+        <p>a cozy little translator for kind words ✿ a cozy little translator for kind words ✿</p>
+    </header>
+    <nav class="navbar">
+        <div class="logo">little lamb</div>
+        <ul class="nav-links">
+            <li><a href="#">home</a></li>
+            <li><a href="#">translate</a></li>
+            <li><a href="#">about</a></li>
+        </ul>
+    </nav>
+    <main class="page-scene">
+        <section class="hero">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+            <div class="hero-text">
+                <h1>little doodle translator</h1>
+                <p>welcome to a tiny world of words!</p>
+            </div>
+        </section>
+        <section class="landscape">
+            <div class="hill hill-back"></div>
+            <div class="hill hill-front"></div>
+            <div class="house"></div>
+            <div class="animal animal-sheep sheep-1">🐑</div>
+            <div class="animal animal-sheep sheep-2">🐑</div>
+            <div class="animal animal-bunny bunny-1">🐇</div>
+            <div class="animal animal-duck duck-1">🐥</div>
+            <div class="animal animal-bear bear-1">🧸</div>
+            <div class="flower flower-1">🌼</div>
+            <div class="flower flower-2">🌷</div>
+            <div class="flower flower-3">🌼</div>
+            <section class="translator-card">
+                <div class="card-header">
+                    <h2>translate with me</h2>
+                    <p>switch languages and translate your message</p>
+                </div>
+                <div class="controls">
+                    <button id="switchButton" type="button">English → Spanish</button>
+                </div>
+                <div class="input-group">
+                    <label for="inputText">your message</label>
+                    <textarea
+                        id="inputText"
+                        placeholder="Write something in English..."
+                        rows="5"
+                    ></textarea>
+                </div>
+                <button id="trButton" type="button">Translate</button>
+                <p id="status">Ready</p>
+                <div class="result-box">
+                    <h3>translation</h3>
+                    <p id="result"></p>
+                </div>
+            </section>
+        </section>
+    </main>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
