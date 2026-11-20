@@ -1,53 +1,114 @@
 # Little Lamb Translator 🐑
 
-Aplicación desarrollada como prueba de concepto para automatizar tareas de atención al cliente utilizando modelos de inteligencia artificial.
+A proof-of-concept application developed for an international e-commerce company to improve customer support using artificial intelligence.
 
-## Funcionalidades
+The project combines a browser-based translator with a Python customer support assistant powered by Google's Gemini API.
+
+## Features
+
+### Frontend — Translation
+
+- English-to-Spanish and Spanish-to-English translation.
+- Local inference using Hugging Face Transformers.js.
+- WebGPU acceleration with WebAssembly (WASM) fallback.
+- Language switching button.
+- Loading, translation and error status messages.
+- Custom storybook-inspired interface.
+
+### Backend — Customer Support
+
+- Customer message analysis using Google Gemini.
+- Automatic classification into four categories:
+  - `incidencia_envio`
+  - `devolucion`
+  - `consulta_producto`
+  - `otro`
+- Priority classification: `alta`, `media`, `baja`.
+- Suggested professional responses in Spanish.
+- Structured JSON output using JSON Schema.
+- Exponential backoff with jitter for temporary API errors.
+
+## Technologies
+
+**Frontend:** HTML5, CSS3, JavaScript, Transformers.js.
+
+**Backend:** Python, Google GenAI SDK, python-dotenv.
+
+## Project Structure
+
+```text
+ud2-customer-support/
+├── index.html
+├── style.css
+├── script.js
+├── main.py
+├── requirements.txt
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone REPOSITORY_URL
+cd ud2-customer-support
+```
+
+Create a Python virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows (PowerShell):
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Install the required dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Create a `.env` file based on `.env.example`:
+
+```dotenv
+GEMINI_API_KEY=your_api_key_here
+```
+
+## How to Run
 
 ### Frontend
-- Traducción de inglés a español y viceversa.
-- Modelos de Hugging Face ejecutados directamente en el navegador.
-- Detección de WebGPU con alternativa WASM.
-- Interfaz interactiva con indicadores de estado.
+
+Open `index.html` using the Live Server extension in Visual Studio Code.
+
+Select the translation direction, enter a message and click **Translate**.
+
+The translation models run locally in the browser. An internet connection is required for the initial download of the models.
 
 ### Backend
-- Análisis de consultas mediante la API de Gemini.
-- Clasificación por categoría y prioridad.
-- Generación de respuestas sugeridas en español.
-- Resultados estructurados mediante JSON Schema.
-- Gestión de errores temporales con retroceso exponencial y jitter.
 
-## Tecnologías
+Run the following command:
 
-- HTML5, CSS3 y JavaScript
-- Hugging Face Transformers.js
-- Python
-- Google Gemini API
-- python-dotenv
+```bash
+python main.py
+```
 
-## Instalación
+Enter a customer message when prompted.
 
-1. Clonar el repositorio.
-2. Crear un entorno virtual:
+The program will return a JSON object containing the category, priority and suggested response.
 
-   `python -m venv .venv`
+## Security
 
-3. Activarlo en Windows:
+The Gemini API key is stored in a local `.env` file and is never included in the frontend.
 
-   `.venv\Scripts\activate`
+The `.gitignore` file excludes `.env` and `.venv/` from the Git repository.
 
-4. Instalar las dependencias:
+## Academic Context
 
-   `pip install -r requirements.txt`
-
-5. Crear un archivo `.env` siguiendo `.env.example` e introducir la API key de Gemini.
-
-## Ejecución
-
-**Frontend:** abrir `index.html` mediante Live Server. La primera carga de cada modelo requiere conexión a Internet para su descarga.
-
-**Backend:** ejecutar `python main.py` desde la terminal.
-
-## Seguridad
-
-La clave de Gemini se almacena en un archivo `.env` que está excluido del repositorio mediante `.gitignore`. No se utiliza la clave en el frontend.
+Developed for UD02 — Machine Learning and AI API Integration, as part of the Web Application Development (DAW) coursework.
