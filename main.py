@@ -16,7 +16,12 @@ api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
     raise ValueError("GEMINI_API_KEY not found in .env")
 
-client = genai.Client(api_key=api_key)
+client = genai.Client(
+    api_key=api_key,
+    http_options=types.HttpOptions(
+        retry_options=types.HttpRetryOptions(attempts=1)
+    )
+)
 
 
 schema = {
@@ -61,6 +66,41 @@ config = types.GenerateContentConfig(
 )
 
 
+def validate_response(data):
+    required_fields = {
+        "categoria",
+        "prioridad",
+        "respuesta_sugerida"
+    }
+
+    valid_categories = {
+        "incidencia_envio",
+        "devolucion",
+        "consulta_producto",
+        "otro"
+    }
+
+    valid_priorities = {"alta", "media", "baja"}
+
+    if not isinstance(data, dict):
+        raise ValueError("Response must be a JSON object")
+
+    if set(data.keys()) != required_fields:
+        raise ValueError("Invalid JSON fields")
+
+    if data["categoria"] not in valid_categories:
+        raise ValueError("Invalid category")
+
+    if data["prioridad"] not in valid_priorities:
+        raise ValueError("Invalid priority")
+
+    if (not isinstance(data["respuesta_sugerida"], str)
+            or not data["respuesta_sugerida"].strip()):
+        raise ValueError("Invalid suggested response")
+
+    return data
+
+
 def analyze_message(message):
     max_attempts = 4
 
@@ -77,18 +117,18 @@ def analyze_message(message):
 
             data = json.loads(response.text)
 
-            return data
+            return validate_response(data)
 
         except errors.APIError as error:
-            if error.code not in (429, 500, 502, 503, 504):
+            if error.code not in (408, 429) and not 500 <= error.code < 600:
                 raise
 
             if attempt == max_attempts - 1:
                 raise
 
-            delay = min(2 ** attempt, 16)
-            jitter = random.uniform(0, 1)
-            wait_time = delay + jitter
+            backoff_delay = 2 ** attempt
+            jitter = random.uniform(0, backoff_delay)
+            wait_time = backoff_delay + jitter
 
             print(
                 f"Temporary error {error.code}. "
