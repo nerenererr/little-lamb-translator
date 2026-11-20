@@ -53,7 +53,7 @@ ud2-customer-support/
 Clone the repository:
 
 ```bash
-git clone [https://github.com/nerenererr/little-lamb-translator.git](https://github.com/nerenererr/little-lamb-translator.git)
+git clone https://github.com/nerenererr/little-lamb-translator.git
 cd ud2-customer-support
 ```
 
