@@ -37,7 +37,7 @@ The project combines a browser-based translator with a Python customer support a
 ## Project Structure
 
 ```text
-ud2-customer-support/
+little-lamb-translator/
 ├── index.html
 ├── style.css
 ├── script.js
@@ -53,8 +53,8 @@ ud2-customer-support/
 Clone the repository:
 
 ```bash
-git clone REPOSITORY_URL
-cd ud2-customer-support
+git clone https://github.com/nerenererr/little-lamb-translator.git
+cd little-lamb-translator
 ```
 
 Create a Python virtual environment:
